@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\PostRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: PostRepository::class)]
 class Post
@@ -12,21 +13,27 @@ class Post
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
+    #[Groups('show_post')]
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
+    #[Groups('show_post')]
     private ?string $title = null;
 
     #[ORM\Column(length: 255, nullable: true)]
+    #[Groups('show_post')]
     private ?string $description = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
+    #[Groups('show_post')]
     private ?\DateTimeInterface $date = null;
 
     #[ORM\Column(length: 255, nullable: true)]
+    #[Groups('show_post')]
     private ?string $imagePath = null;
 
     #[ORM\ManyToOne(inversedBy: 'posts')]
+    #[Groups('show_post')]
     private ?Author $author = null;
 
     public function getId(): ?int

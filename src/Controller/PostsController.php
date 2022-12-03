@@ -2,18 +2,19 @@
 
 namespace App\Controller;
 
+use App\Repository\PostRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Annotation\Route;
 
 class PostsController extends AbstractController
 {
-    #[Route('/posts', name: 'app_posts')]
-    public function index(): JsonResponse
+    #[Route('/posts', name: 'app_posts', methods: ['GET'])]
+    public function index(PostRepository $postRepository): JsonResponse
     {
-        return $this->json([
-            'message' => 'Welcome to your new controller!',
-            'path' => 'src/Controller/PostsController.php',
-        ]);
+        $posts = $postRepository->findAll();
+
+
+        return $this->json($posts, 200, [], ['groups' => 'show_post']);
     }
 }

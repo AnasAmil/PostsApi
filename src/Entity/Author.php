@@ -6,6 +6,7 @@ use App\Repository\AuthorRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: AuthorRepository::class)]
 class Author
@@ -13,15 +14,19 @@ class Author
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
+    #[Groups('show_post')]
     private ?int $id = null;
 
     #[ORM\Column(length: 50)]
+    #[Groups('show_post')]
     private ?string $firstName = null;
 
     #[ORM\Column(length: 50)]
+    #[Groups('show_post')]
     private ?string $lastName = null;
 
     #[ORM\Column]
+     #[Groups('show_post')]
     private ?int $Age = null;
 
     #[ORM\OneToMany(mappedBy: 'author', targetEntity: Post::class)]
